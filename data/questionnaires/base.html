@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Questions Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.6/css/uikit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.6/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.7.6/js/uikit-icons.min.js"></script>
+    <style>
+        * {
+            color: #000;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+        }
+        .question-card {
+            border: 1px solid #999;
+        }
+        .navigation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            margin: 1rem 0;
+        }
+        .progress-section {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #e5e5e5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .progress-dot.complete {
+            background-color: #32d296;
+        }
+        .progress-dot.active {
+            border: 2px solid #10b273;
+        }
+        .progress-dot.incomplete {
+            background-color: #f0f0f0;
+        }
+        .progress-text {
+            color: #666;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        .navigation-button {
+            position: relative;
+            min-width: 40px;
+        }
+    </style>
+</head>
+<body class="uk-background-muted">
+    <!-- Instructions Modal -->
+    <div id="instructions-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">Instructions</h2>
+            {{ instructions|safe }}
+            <button class="uk-button uk-button-primary uk-modal-close" type="button">Got it!</button>
+        </div>
+    </div>
+     <!-- Consent Modal -->
+    <div id="consent-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">Data Consent Information</h2>
+            <h4>What data will be collected?</h4>
+            <p>
+                We collect only the annotations you make during the study. If
+                you participate via Prolific, we store your participant ID which
+                is linked to your demographic profile from Prolific.
+            </p>
+            <h4>How will the data be used?</h4>
+            <p>
+                The anonymized annotations will be used to train classifiers or
+                to enrich other dataset. The demographic profile is only used to
+                estimate the representativeness of the annotators sample.
+            </p>
+            <h4>How the data will be stored and for how long?</h4>
+            <p>
+                Your annotations and demographic profile are stored securely on
+                our servers at the Bauhaus-Universität Weimar. Access to the
+                anonymized annotations can later be shared with other
+                researchers.
+            </p>
+            <h4>How you will maintain the anonymity of responses?</h4>
+            <p>
+                Your annotations are only linked to your demographic profile (or
+                Prolific ID) via a randomly generated hash (UUID). After
+                completion of our study, the Prolific IDs are deleted, so that
+                only the random hash remains with no possibility of linking to
+                your person.
+            </p>
+            <h4>Will anonymized data be made available to other researchers online at some point?</h4>
+            <p>
+                Yes, we intend to release the anonymized annotations publicly
+                for other researchers to use. But your personal information
+                (demographic profile or Prolific ID) is never released.
+            </p>
+            <h4>How can I withdraw my consent and data?</h4>
+            <p>
+                During the study, you may withdraw consent at any time, by
+                unchecking the checkbox on this page or. Note that we can only
+                compensate you via Prolific if you consent with our data usage
+                policy.
+            </p>
+            <h4>Under which legal framework will data be held?</h4>
+            <p>
+                All data is held in Germany, under the rules of the GDPR. Please
+                read our <a href="https://webis.de/legal.html" target="_blank">terms and privacy policy</a>.
+            </p>
+        </div>
+    </div>
+     <!-- Main Content -->
+    <div>
+        <div class="uk-container uk-container-large">
+            <form id="questionsForm">
+                <input type="hidden" id="submission_id" name="submission_id" value="{{ submission_id }}">
+                <div class="uk-margin-bottom uk-margin-top uk-grid uk-grid-match uk-child-width-1-2@m">
+                    <div>
+                        <div>
+                            <input
+                                class="uk-checkbox"
+                                id="instructions-checkbox"
+                                type="checkbox"
+                                name="consent"
+                                value="true"
+                                checked>
+                            <span class="uk-text-meta">I have read and understood the instructions.</span>
+                            <span class="uk-icon-button" id="instructions-button" uk-icon="icon: info" uk-tooltip="View Instruction"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <input
+                                class="uk-checkbox"
+                                id="consent-checkbox"
+                                type="checkbox"
+                                name="consent"
+                                value="true"
+                                checked>
+                            <span class="uk-text-meta">I consent to my data being used for scientific purposes.</span>
+                            <span class="uk-icon-button" uk-icon="icon: info" id="consent-button" type="button" uk-tooltip="View Consent"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
+                    {% block questionnaire %}
+                    {% endblock %}
+                    <!-- Navigation section with integrated progress -->
+                    <div id="navigation-container" class="navigation-container uk-margin-medium-top">
+                        <button class="uk-button uk-button-default navigation-button" type="button" id="prevButton">
+                            <span uk-icon="icon: chevron-left"></span>
+                        </button>
+                        <div class="progress-section">
+                            <div class="progress-dots" id="progressDots"></div>
+                            <p class="progress-text" id="completionStatus"></p>
+                        </div>
+                        <button class="uk-button uk-button-default navigation-button" type="button" id="nextButton">
+                            <span uk-icon="icon: chevron-right"></span>
+                        </button>
+                    </div>
+                    <hr class="uk-margin">
+                    <!-- Submit button -->
+                    <div class="uk-margin-medium-top uk-text-center">
+                        <button class="uk-button uk-button-primary uk-width-1-1 uk-width-auto@s" type="submit" id="submitButton" disabled>Submit</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Completion code section -->
+            <div id="completionCode" class="uk-alert uk-alert-success uk-margin-top uk-margin-bottom" style="display: none;">
+                <h3 class="uk-alert-heading">Completion Code</h3>
+                <p class="uk-text-lead uk-margin-small" id="codeDisplay"></p>
+                <p class="uk-text-meta">Use this code in Prolific to mark the task as complete, or use this button to return:</p>
+                <a href="" id="returnButton" class="uk-button uk-button-default" target="_blank">Return to Prolific</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" >
+        let BigBro = {
+            // This should not be modified outside of the init method.
+            data: {
+                user: "",
+                server: "",
+                events: ["click", "dblclick", "mousedown", "mouseup",
+                    "mouseenter", "mouseout", "mouseover", "wheel", "loadstart", "loadend", "load",
+                    "unload", "reset", "submit", "scroll", "resize",
+                    "cut", "copy", "paste", "select", "keydown", "keyup",
+                    "ontouchstart", "ontouchmove", "ontouchend", "ontouchcancel"
+                ],
+            },
+            eventQueue: [],
+            captureQueue: [],
+            // State associated with recording user.
+            startedRecording: false,
+            captureStream: null,
+            captureInterval: 1000,
+
+            // init must be called with the user and the server, and optionally a list of
+            // events to listen to globally.
+            init: function (user, server, events) {
+                this.data.user = user;
+                this.data.server = server;
+                this.data.events = events || this.data.events;
+
+                let protocol = 'ws://';
+                if (window.location.protocol === 'https:') {
+                    protocol = 'wss://';
+                }
+
+                this.wsEvent = new WebSocket(protocol + this.data.server + "/bb");
+                let self = this;
+                this.wsEvent.onopen = function () {
+                    for (let i = 0; i < self.data.events.length; i++) {
+                        window.addEventListener(self.data.events[i], function (e) {
+                            self.log(e, self.data.events[i]);
+                        })
+                    }
+                };
+                return this
+            },
+            // log logs an event with a specified method name (normally the actual event name).
+            log: function (e, method, comment) {
+                let event = {
+                    target: e.target.tagName,
+                    name: e.target.name,
+                    id: e.target.id,
+                    method: method,
+                    location: window.location.href,
+                    time: new Date().toISOString(),
+                    x: e.x,
+                    y: e.y,
+                    screenWidth: window.innerWidth,
+                    screenHeight: window.innerHeight,
+                    actor: this.data.user
+                };
+                if (method === "keydown" || method === "keyup") {
+                    // Which key was actually pressed?
+                    event.comment = e.code;
+                }
+                if (method === "paste" || method === "cut" || method === "copy") {
+                    // Seems like we can only get data for paste events.
+                    event.comment = e.clipboardData.getData("text/plain")
+                }
+                if (method === "wheel") {
+                    // Strength of the wheel rotation.
+                    event.comment = e.deltaY.toString();
+                }
+                if (comment != null) {
+                    event.comment = comment;
+                }
+
+                if (this.wsEvent.readyState !== 1) {
+                    this.eventQueue.push(event);
+                    return false;
+                }
+
+                while (this.eventQueue.length > 0) {
+                    this.wsEvent.send(JSON.stringify(this.eventQueue.pop()))
+                }
+
+                this.wsEvent.send(JSON.stringify(event));
+            }
+        };
+    </script>
+    <script type="text/javascript">
+        let bb = BigBro.init("{{ submission_id }}", "rag-responses-eventdb.web.webis.de");
+    </script>
+    <script type="text/javascript" >
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const submitButton = document.getElementById('submitButton');
+        const progressDots = document.getElementById('progressDots');
+        const completionStatus = document.getElementById('completionStatus');
+        let currentSlide = 0;
+
+        const timestamps = {};
+
+        // Add modal functionality
+        const instructionsModal = document.getElementById('instructions-modal');
+        const instructionsButton = document.getElementById('instructions-button');
+        const instructionCheckbox = document.getElementById('instructions-checkbox')
+        const consentModal = document.getElementById('consent-modal');
+        const consentButton = document.getElementById('consent-button');
+        const consentCheckbox = document.getElementById('consent-checkbox');
+
+        // Add prolific URL parameters
+        const urlParams = new URL(window.location.toLocaleString()).searchParams;
+        const prolific_info = {};
+        prolific_info["prolific_pid"] = urlParams.get("prolific_pid");
+        prolific_info["prolific_study_id"] = urlParams.get("study_id");
+        prolific_info["prolific_session_id"] = urlParams.get("session_id");
+        prolific_info["consent"] = consentCheckbox.checked;
+        consentCheckbox.addEventListener('click', function () {
+            prolific_info["consent"] = consentCheckbox.checked;
+        })
+
+        // Show modal on page load
+        UIkit.modal(instructionsModal).show();
+
+        // Show modal when instruction button is clicked
+        instructionsButton.addEventListener('click', function() {
+            UIkit.modal(instructionsModal).show();
+        });
+        consentButton.addEventListener('click', function() {
+            UIkit.modal(consentModal).show();
+        });
+
+        // Initialize tooltips
+        UIkit.tooltip('.uk-tooltip');
+
+        // Initialize progress dots
+        function initializeProgressDots() {
+            progressDots.innerHTML = ''; // Clear existing dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                dot.setAttribute('data-index', index);
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+                progressDots.appendChild(dot);
+            });
+        }
+
+        function updateProgressDots() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'complete', 'incomplete');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+                const slide = slides[index];
+                const isComplete = checkSlideCompletion(slide);
+                dot.classList.add(isComplete ? 'complete' : 'incomplete');
+            });
+        }
+
+        function checkSlideCompletion(slide) {
+            const radioGroups = slide.querySelectorAll('.radio-group');
+            return  Array.from(radioGroups).every(group => {
+                const radios = group.querySelectorAll('input[type="radio"]');
+                const text = slide.querySelectorAll('textarea');
+                return Array.from(radios).some(radio => radio.checked) && (Array.from(text).some(text => !(text.value == null || text.value === "")) || Array.from(text).length === 0);
+            });
+        }
+
+        function updateCompletionStatus() {
+            const completedSlides = Array.from(slides).filter(slide => checkSlideCompletion(slide)).length;
+            completionStatus.textContent = `${completedSlides} of ${slides.length} items completed`;
+        }
+
+        function updateNavigationButtons() {
+            // Update button states
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === slides.length - 1;
+        }
+
+        function recordTimestamp(action, slideIndex) {
+            const timestamp = new Date().toISOString();
+            if (!timestamps[`slide_${slideIndex}`]) {
+                timestamps[`slide_${slideIndex}`] = {};
+            }
+            if (!timestamps[`slide_${slideIndex}`][action]) {
+                timestamps[`slide_${slideIndex}`][action] = [];
+            }
+            timestamps[`slide_${slideIndex}`][action].push(timestamp);
+        }
+
+        function showSlide(index) {
+            recordTimestamp('leave', currentSlide);
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            currentSlide = index;
+            recordTimestamp('enter', currentSlide);
+            updateProgressDots();
+            updateCompletionStatus();
+            updateNavigationButtons();
+            checkFormCompletion();
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        function checkFormCompletion() {
+            const allSlidesFilled = Array.from(slides).every(slide => checkSlideCompletion(slide));
+            submitButton.disabled = !allSlidesFilled;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1 && !!prolific_info["prolific_pid"]) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0 && !!prolific_info["prolific_pid"]) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Initialize the form if prolific pid is not null
+        if (!!prolific_info["prolific_pid"]) {
+            initializeProgressDots();
+            showSlide(0);
+        }
+
+        // Event listeners
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        // Add event listener for radio button changes
+        document.addEventListener('change', function(e) {
+            if (e.target.type === 'radio') {
+                recordTimestamp(e.target.name, currentSlide);
+                checkFormCompletion();
+                updateProgressDots();
+                updateCompletionStatus();
+                updateNavigationButtons();
+            }
+        });
+        const textAreas = document.querySelectorAll("textarea");
+        for (let i = 0; i < textAreas.length; i++) {
+            textAreas[i].addEventListener("input", function() {
+                checkFormCompletion();
+                updateProgressDots();
+                updateCompletionStatus();
+                updateNavigationButtons();
+            });
+        }
+
+        // Form submission handler
+        document.getElementById('questionsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            recordTimestamp('submit', currentSlide);
+
+            const formData = new FormData(this);
+            formData.append('timestamps', JSON.stringify(timestamps));
+            prolific_info["consent"] = consentCheckbox.checked;
+            formData.append('prolific_info', JSON.stringify(prolific_info));
+            formData.append('study_name', '{{ study }}')
+
+            try {
+                const response = await fetch('{{ backend_url }}/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById('codeDisplay').textContent = result.completionCode;
+                document.getElementById('completionCode').style.display = 'block';
+                document.getElementById('returnButton').setAttribute("href", "https://app.prolific.com/submissions/complete?cc="+result.completionCode);
+                document.getElementById('completionCode').scrollIntoView({
+                  behavior: 'smooth'
+                })
+            } catch (error) {
+                console.error('Error:', error);
+                UIkit.notification({
+                    message: 'An error occurred while submitting the form.',
+                    status: 'danger',
+                    pos: 'top-center',
+                    timeout: 5000
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

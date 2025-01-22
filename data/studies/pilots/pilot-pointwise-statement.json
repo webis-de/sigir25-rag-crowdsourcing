@@ -1,0 +1,30 @@
+{
+    "instructions": "#### Overview\n\nYou will assess the quality of textual statements and their references for different queries.\nThe assessment will comprise several quality dimensions.\nOnly the response and the reference should be assessed for its quality, not the query.\n\nYou can display the instructions at any time by clicking on the \"i\" button on the top left of the questionnaire.</p>\n\n#### Process\n- Read each query-response pair carefully\n- Answer all questions for each pair using the provided rating scale\n- You must complete all questions before submitting; the submit button is disabled until all questions are answered.\n- You can revise your answers at any time before submitting. Once submitted, your answer is final.\n\nBy proceeding, you consent to your annotation data being used for scientific purposes. You can withdraw that consent any time by unchecking the consent option at the top right. Note that we can only compensate you via Prolific if you consent with our data usage policy. \n\n**Once successfully submitted, the page will update to display a completion code you can enter in Prolific to mark the task as done.**\n\n#### Rating Scale\nEach question asks to rate the response between two polar opposites A and B, for example \"Is the statement colloquial or formal?\". Ratings are given on a 4-point scale:\n\n- **Very colloquial** (fully encompassing concept A)\n- **Somewhat colloquial** (partially encompassing concept A, more than concept B)\n- **Somewhat formal** (partially encompassing concept B, more than concept A)\n- **Very formal** (fully encompassing concept B)\n\n#### Navigation\nNavigate between items using the navigation buttons at the bottom of the questionnaire.\n\n- Use the  arrows to move between items\n- The dots show your progress and completion status\n- Click on any dot to jump to the corresponding item",
+    "type": "statement",
+    "questions": [
+        {
+            "name": "topical_correctness",
+            "text": "Is the statement relevant to the query?",
+            "description": "Assess if the content of the statement is within the scope of what the query asks for. A relevant statement would address the specific information requested. An irrelevant statement contains only unrelated or tangential information.",
+            "options": {
+                "-3": "Fully Irrelevant",
+                "-1": "Somewhat Irrelevant",
+                "1": "Somewhat Relevant",
+                "3": "Very Relevant"
+            },
+            "justification": false
+        },
+        {
+            "name": "external_consistency",
+            "text": "Is the statement supported by the reference?",
+            "description": "Check if the response only makes claims supported by the reference. The information does not need to be factually correct - it only has to match the reference. For example, a statement would be supported if both statement and reference claim that the sky is green; an unsupported statement could claim a different color, or objects other than the sky.",
+            "options": {
+                "-3": "Fully Unsupported",
+                "-1": "Somewhat Unsupported",
+                "1": "Somewhat Supported",
+                "3": "Fully Supported"
+            },
+            "justification": false
+        }
+    ]
+}

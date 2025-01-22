@@ -1,0 +1,16 @@
+{
+    "instructions": "#### Overview\n\nRate your preference towards either one of two responses for a web search query.\n\nYou can display the instructions at any time by clicking on the \"i\" button on the top left of the questionnaire.</p>\n\n#### Process\n- Read the query and each response pair carefully\n- Provide a preference rating\n- Explain your choice shortly in the text field below; let us know why you liked one response more than the other (2-3 sentences) \n- You must complete all before submitting; the submit button is disabled until all questions are answered.\n- You can revise your answers at any time before submitting. Once submitted, your answer is final.\n\nBy proceeding, you consent to your annotation data being used for scientific purposes. You can withdraw that consent any time by unchecking the consent option at the top right. Note that we can only compensate you via Prolific if you consent with our data usage policy. \n\n**Once successfully submitted, the page will update to display a completion code you can enter in Prolific to mark the task as done.**\n\n#### Navigation\nNavigate between items using the navigation buttons at the bottom of the questionnaire.\n\n- Use the  arrows to move between items\n- The dots show your progress and completion status\n- Click on any dot to jump to the corresponding item",
+    "type": "pairwise",
+    "questions": [
+        {
+            "name": "preference",
+            "text": "Which response would you prefer for the given query?",
+            "description": "",
+            "options": {
+                "-1": "Response A",
+                "1": "Response B"
+            },
+            "justification": true
+        }
+    ]
+}

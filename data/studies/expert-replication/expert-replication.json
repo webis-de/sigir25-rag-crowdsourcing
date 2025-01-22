@@ -1,0 +1,82 @@
+{
+    "instructions": "#### Overview\n\nYou are given a web search query and two possible responses.\nRate your preference for either one of these responses regarding the different given aspects.\n\nYou can display the instructions at any time by clicking on the \"i\" button on the top left of the questionnaire.</p>\n\n#### Process\n- Read the query and each response carefully\n- Provide a preference rating for all aspects\n- You must complete all questions before submitting; the submit button is disabled until all questions are answered.\n- You can revise your answers at any time before submitting. Once submitted, your answer is final.\n\nBy proceeding, you consent to your annotation data being used for scientific purposes. You can withdraw that consent any time by unchecking the consent option at the top right. Note that we can only compensate you via Prolific if you consent with our data usage policy. \n\n**Once successfully submitted, the page will update to display a completion code you can enter in Prolific to mark the task as done.**\n\n#### Navigation\nNavigate between items using the navigation buttons at the bottom of the questionnaire.\n\n- Use the  arrows to move between items\n- The dots show your progress and completion status\n- Click on any dot to jump to the corresponding item",
+    "type": "pairwise",
+    "questions": [
+        {
+            "name": "validity",
+            "text": "Which response better answers the query?",
+            "description": "A good response gives clear information that directly addresses the question. A poor response might talk about other things or suggest asking a different question instead.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "logical_coherence",
+            "text": "Which response is easier to follow?",
+            "description": "A good response presents information in a way that makes sense, and has a clear structure. A poor response jumps between different ideas in a confusing way.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "stylistic_coherence",
+            "text": "Which response has a more consistent writing style?",
+            "description": "A good response uses the same type of language throughout - for example, either all formal or all casual. A response text mixes different styles - for example, switching between very simple and very complex language.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "broad_coverage",
+            "text": "Which response looks at more aspects of the topic?",
+            "description": "A good response discusses different parts of the topic and shows how they connect. A poor response only talks about one small part of the topic.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "deep_coverage",
+            "text": "Which response explains things more in detail?",
+            "description": "A good response gives clear examples and explains ideas completely. A poor response only superficially mentions things without explaining them well.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "internal_consistency",
+            "text": "Which response is clearer about how different views fit together?",
+            "description": "A good response clearly shows when it is comparing different views (like 'some people think X, while others believe Y'). A poor response mixes up different views without explaining how they relate to each other.",
+            "options": {
+                "A": "Response A",
+                "N": "Equal",
+                "B": "Response B"
+            },
+            "justification": false
+        },
+        {
+            "name": "overall_quality",
+            "text": "Which response is better overall?",
+            "description": "Think about all the points above and decide which response is better in general.",
+            "options": {
+                "A": "Response A",
+                "B": "Response B"
+            },
+            "justification": false
+        }
+    ]
+}

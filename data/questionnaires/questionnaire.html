@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block questionnaire %}
+<div id="slideContainer">
+    {% for item in items %}
+    {% set outer_loop = loop %}
+    <div class="slide" data-slide-index="{{ outer_loop.index }}">
+        {% if type == "response" %}
+        <div class="uk-grid uk-child-width-1-2@m" uk-grid>
+            <div>
+                {% include "item_response.html" %}
+            </div>
+            <div>
+                {% for question in questions %}
+                {% include "question.html" %}
+                {% endfor %}
+            </div>
+        </div>
+        {% elif type == "statement" %}
+        <div class="uk-grid uk-child-width-1-2@m" uk-grid>
+            <div>
+                {% include "item_statement.html" %}
+            </div>
+            <div>
+                {% for question in questions %}
+                {% include "question.html" %}
+                {% endfor %}
+            </div>
+        </div>
+        {% elif type == "pairwise" %}
+        <div class="uk-grid uk-child-width-1-1" uk-grid>
+            <div>
+                {% include "item_pairwise.html" %}
+            </div>
+            <div>
+                <div class="uk-width-1-2@m uk-margin-auto uk-align-center">
+                {% for question in questions %}
+                {% include "question.html" %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

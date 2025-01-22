@@ -1,0 +1,23 @@
+{% block item %}
+<div>
+    <input type="hidden" id="query_{{ outer_loop.index }}_id" name="query_{{ outer_loop.index }}_id"
+           value="{{ item.query_id }}">
+    <span class="uk-text-meta">Query</span>
+    <p class="uk-text uk-text-italic uk-margin-small-bottom">{{ item.query_text }}</p>
+    <hr class="uk-margin">
+</div>
+<div class="uk-grid uk-grid-divider uk-child-width-1-2@m" uk-grid>
+    <div>
+        <input type="hidden" id="response_{{ outer_loop.index }}_id_a" name="response_{{ outer_loop.index }}_id_a"
+           value="{{ item.response_id_a }}">
+        <span class="uk-text-meta">Response A</span>
+        <p class="uk-text uk-margin-medium-bottom">{{ item.response_text_a }}</p>
+    </div>
+    <div>
+        <input type="hidden" id="response_{{ outer_loop.index }}_id_b" name="response_{{ outer_loop.index }}_id_b"
+           value="{{ item.response_id_b }}">
+        <span class="uk-text-meta">Response B</span>
+        <p class="uk-text uk-margin-medium-bottom">{{ item.response_text_b }}</p>
+    </div>
+</div>
+{% endblock %}

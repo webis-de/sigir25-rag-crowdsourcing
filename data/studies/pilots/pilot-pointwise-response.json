@@ -1,0 +1,88 @@
+{
+    "instructions": "#### Overview\n\nYou will assess the quality of textual responses for different queries.\nThe assessment will comprise several quality dimensions.\nOnly the response should be assessed for its quality, not the query.\n\nYou can display the instructions at any time by clicking on the \"i\" button on the top left of the questionnaire.</p>\n\n#### Process\n- Read each query-response pair carefully\n- Answer all questions for each pair using the provided rating scale\n- You must complete all questions before submitting; the submit button is disabled until all questions are answered.\n- You can revise your answers at any time before submitting. Once submitted, your answer is final.\n\nBy proceeding, you consent to your annotation data being used for scientific purposes. You can withdraw that consent any time by unchecking the consent option at the top right. Note that we can only compensate you via Prolific if you consent with our data usage policy. \n\n**Once successfully submitted, the page will update to display a completion code you can enter in Prolific to mark the task as done.**\n\n#### Rating Scale\nEach question asks to rate the response between two polar opposites A and B, for example \"Is the response colloquial or formal?\". Ratings are given on a 4-point scale:\n\n- **Very colloquial** (fully encompassing concept A)\n- **Somewhat colloquial** (partially encompassing concept A, more than concept B)\n- **Somewhat formal** (partially encompassing concept B, more than concept A)\n- **Very formal** (fully encompassing concept B)\n\n#### Navigation\nNavigate between items using the navigation buttons at the bottom of the questionnaire.\n\n- Use the  arrows to move between items\n- The dots show your progress and completion status\n- Click on any dot to jump to the corresponding item",
+    "type": "response",
+    "questions": [
+        {
+            "name": "validity",
+            "text": "Does the response provide a direct answer to the query?",
+            "description": "Determine if the response provides information addressing the question. An invalid response would, for example, instead suggest a rephrasing or different spelling of the query without providing an answer, or state that no information is available without attempting to answer.",
+            "options": {
+                "-1": "No",
+                "1": "Yes"
+            },
+            "justification": false
+        },
+        {
+            "name": "logical_coherence",
+            "text": "Is the response disorganized or structured logically?",
+            "description": "Look for a clear introduction and conclusion, logical paragraph breaks, and smooth transitions between ideas. A structured response would be one that starts with an overview, then discusses points one by one. A disorganized response would be one that jumps between topics randomly and is disorganized or confusing.",
+            "options": {
+                "-3": "Very Disorganized",
+                "-1": "Somewhat Disorganized",
+                "1": "Somewhat Structured",
+                "3": "Very Structured"
+            },
+            "justification": false
+        },
+        {
+            "name": "stylistic_coherence",
+            "text": "Is the writing style of the response varied or consistent throughout?",
+            "description": "Look for a consistent style of writing, level of formality, and similar vocabulary level throughout the response. A consistent response maintains the same style and tone. A varied response switches in style, for example between formal academic language and casual slang.",
+            "options": {
+                "-3": "Very Varied",
+                "-1": "Somewhat Varied",
+                "1": "Somewhat Consistent",
+                "3": "Very Consistent"
+            },
+            "justification": false
+        },
+        {
+            "name": "broad_coverage",
+            "text": "Is the response limited to a narrow aspect of the query or covering a broad range aspects?",
+            "description": "Look for various angles, examples, or arguments related to the query. A comprehensive response discusses the query from different viewpoints and relates them to one another. A limited response only focuses one one narrow or specific aspect of the query.",
+            "options": {
+                "-3": "Very Narrow",
+                "-1": "Somewhat Narrow",
+                "1": "Somewhat Broad",
+                "3": "Very Broad"
+            },
+            "justification": false
+        },
+        {
+            "name": "deep_coverage",
+            "text": "Are the explanations given in the response basic or detailed?",
+            "description": "Look for specific examples or thorough explanations given on concepts in the response. A detailed response provides detailed information on aspects of the answer. A basic response only superficially discusses aspects of the answer, but does not explain them in detail.",
+            "options": {
+                "-3": "Very Basic",
+                "-1": "Somewhat Basic",
+                "1": "Somewhat Detailed",
+                "3": "Very Detailed"
+            },
+            "justification": false
+        },
+        {
+            "name": "internal_consistency",
+            "text": "Are there contradictions in the response or is the information coherent throughout?",
+            "description": "Look for statements in the response that conflict with each other. A coherent response has information aligned throughout the text. A contradictory response would for example say 'X is true' in one paragraph and 'X is false' in another, contradicting itself.",
+            "options": {
+                "-3": "Very Contradictory",
+                "-1": "Somewhat Contradictory",
+                "1": "Somewhat Coherent",
+                "3": "Very Coherent"
+            },
+            "justification": false
+        },
+        {
+            "name": "overall_quality",
+            "text": "How good do you think this response is overall?",
+            "description": "Provide an overall rating and shortly explain your reasoning.",
+            "options": {
+                "-3": "Very Poor",
+                "-1": "Somewhat Poor",
+                "1": "Somewhat Good",
+                "3": "Very Good"
+            },
+            "justification": true
+        }
+    ]
+}

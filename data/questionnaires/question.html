@@ -1,0 +1,28 @@
+{% block question %}
+<div class="question-card uk-margin-small uk-padding-small uk-border-rounded">
+    <span class="uk-text-bold">{{ question.text }}</span>
+    <p class="uk-text-meta uk-margin-small-top uk-margin-small-bottom">{{ question.description }}</p>
+    <div class="radio-group uk-child-width-expand uk-grid-divider" uk-grid>
+        {% for value, option in question.options.items() %}
+        <div>
+            <label>
+                <div class="uk-align-center uk-text-center uk-margin-remove-top uk-margin-remove-bottom">
+                    <input
+                        class="uk-radio"
+                        type="radio"
+                        name="response_{{ outer_loop.index }}_{{ question.name }}"
+                        value="{{ value }}"
+                        required>
+                </div>
+                <span class="uk-align-center uk-text-center uk-margin-remove-top uk-margin-remove-bottom uk-form-label">{{ option }}</span>
+            </label>
+        </div>
+        {% endfor %}
+    </div>
+    {% if question.justification %}
+    <textarea class="uk-textarea uk-margin-small-top"
+              name="response_{{ outer_loop.index }}_{{ question.name }}_justification" rows="4"
+              placeholder="Why do you give that rating?" aria-label="Textarea"></textarea>
+    {% endif %}
+</div>
+{% endblock %}

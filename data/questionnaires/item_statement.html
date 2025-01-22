@@ -1,0 +1,18 @@
+{% block item %}
+<input type="hidden" id="query_{{ outer_loop.index }}_id" name="query_{{ outer_loop.index }}_id"
+       value="{{ item.query_id }}">
+<span class="uk-text-meta">Query</span>
+<p class="uk-text uk-text-italic uk-margin-small-bottom">{{ item.query_text }}</p>
+<hr class="uk-margin">
+<input type="hidden" id="response_{{ outer_loop.index }}_id" name="response_{{ outer_loop.index }}_id"
+       value="{{ item.response_id }}">
+<input type="hidden" id="statement_{{ outer_loop.index }}_id" name="statement_{{ outer_loop.index }}_id"
+       value="{{ item.statement_id }}">
+<span class="uk-text-meta">Statement</span>
+<p class="uk-text uk-margin-medium-bottom">{{ item.statement_text }}</p>
+<hr class="uk-margin">
+<input type="hidden" id="reference_{{ outer_loop.index }}_id" name="reference_{{ outer_loop.index }}_id"
+       value="{{ item.reference_id }}">
+<span class="uk-text-meta">Reference</span>
+<p class="uk-text uk-margin-medium-bottom">{{ item.reference_text }}</p>
+{% endblock %}

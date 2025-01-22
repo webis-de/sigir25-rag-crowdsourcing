@@ -1,0 +1,6 @@
+db:
+  path: "responses.sqlite" # Needs to be prefixed with /mnt/db for k8s
+codes:
+  study_test:
+    done: ABDFE7878
+    no_consent: C1JBTBCX

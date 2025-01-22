@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+openai = "*"
+markdown = "*"
+scikit-learn = "*"
+elasticsearch = "*"
+seaborn = "*"
+statsmodels = "*"
+krippendorff = "*"
+bertopic = "*"
+sacrebleu = "*"
+bokeh = "*"
+textstat = "*"
+bert-score = "*"
+rouge-score = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
