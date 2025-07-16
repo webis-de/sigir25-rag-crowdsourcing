@@ -47,8 +47,24 @@ The repository contains:
 
 ## 📝 Citation
 
-If you use this dataset in your research, please cite:
-[Citation information will be added upon publication]
+If you use the data or code in your research, please cite:
+
+```bib
+@InProceedings{gienapp:2025a,
+  author =                   {Lukas Gienapp and Tim Hagen and Maik Fr{\"o}be and Matthias Hagen and Benno Stein and Martin Potthast and Harrisen Scells},
+  booktitle =                {48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2025)},
+  doi =                      {10.1145/3726302.3730093},
+  isbn =                     {979-8-4007-1592-1/2025/07},
+  month =                    jul,
+  numpages =                 11,
+  pages =                    {159 -- 169},
+  publisher =                {ACM},
+  site =                     {Padua, Italy},
+  title =                    {{The Viability of Crowdsourcing for RAG Evaluation}},
+  year =                     2025
+}
+```
+
 
 ## 📄 License
 This repository is licensed under the [MIT License](LICENSE), except the [data](data) directory.
